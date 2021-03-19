@@ -1,0 +1,91 @@
+.t_content .comment {
+  padding: 30rpx;
+  height: 150rpx;
+  display: flex;
+  border-top: 1rpx solid #eee;
+}
+.t_content .comment .left {
+  display: flex;
+  flex: 1;
+}
+.t_content .comment .left .comment_l {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 4rpx;
+  margin-right: 28rpx;
+  background-color: #eee;
+}
+.t_content .comment .left .comment_l image {
+  width: 150rpx;
+  height: 150rpx;
+}
+.t_content .comment .left .comment_p {
+  width: 382rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 14rpx;
+}
+.t_content .comment .left .comment_p .item {
+  height: 48rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 28rpx;
+  color: #303030;
+}
+.t_content .comment .left .comment_p .fonts {
+  height: 64rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24rpx;
+  color: #303030;
+}
+.t_content .comment .left .comment_p .fontt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24rpx;
+  color: #999;
+}
+.t_content .comment .gocomment {
+  width: 130rpx;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.t_content .comment .gocomment text {
+  display: inline-block;
+  color: #eb5902;
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 48rpx;
+  width: 138rpx;
+  height: 48rpx;
+  border: 2rpx solid #f6f6f6;
+  border-radius: 25rpx;
+}
+.t_content .nodata {
+  width: 100%;
+  height: 800rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.t_content .nodata image {
+  width: 424rpx;
+  height: 244rpx;
+  margin-bottom: 40rpx;
+}
+.t_content .nodata text {
+  height: 80rpx;
+  color: #999;
+  font-size: 30rpx;
+}
+.t_content .hid {
+  display: none;
+}

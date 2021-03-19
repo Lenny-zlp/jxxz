@@ -1,0 +1,91 @@
+<!-- <wxs module="convert_u" src="../../../until/convertUtil.wxs"></wxs> -->
+<!-- <radio-group style="display:block;width:100%;overflow:hidden;padding-bottom:120rpx;">
+  <block wx:for="{{list}}" wx:key="list">
+    <view class="checkWrap row-between">
+      <radio class="checkedBg" size='10rpx' color='#eb5902' checked='{{voucherId==item.Cardid}}'></radio>
+      <view class="voucherWrap">
+        <view catchtap='onBack' data-paidbycardisenabled='true' data-giftcardno='{{item.Cardid}}' class="voucherList row-between">
+          <view class="voucherL column-center">
+            <text>{{item.VoucherPrice}}</text>
+          </view>
+          <view class="voucherR column-center">
+            <text>{{item.BatchName}}</text>           
+          </view>
+        </view>
+        <view class="saleTime">{{item.Begintime}} ~ {{item.Endtime}}</view>
+      </view>
+    </view>
+  </block>
+</radio-group>
+<view catchtap='onBack' data-paidbycardisenabled='false' data-giftcardno='-1' class="voucherBtn">
+  <text>不使用小镇币</text>
+</view>
+ -->
+<radio-group style="display:block;width:100%;overflow:hidden;padding-bottom:120rpx;">
+  <block wx:for="{{list}}" wx:key="list">
+    <view class="checkWrap row-between">
+      <radio class="checkedBg" size='10rpx' color='#eb5902' checked='{{voucherId==item.Cardid}}'></radio>
+        <view
+        class="li"
+        catchtap='onBack' data-paidbycardisenabled='true' data-giftcardno='{{item.Cardid}}'
+        >
+        <view class="s_top">
+            <view class="t_left">
+                <view class="span">小镇币</view>
+                <view class="i">面值{{item.CardSum}}</view>
+            </view>
+            <view class="t_right">
+                <!-- <view class="span" bindtap="handleMenuTap" data-cardId="{{item.Cardid}}"><image src="http://cache.jiangxinxiaozhen.com/WD/APP/menu.png"/></view> -->
+                <view class="i">{{item.Begintime}}-{{item.Endtime}}</view>
+            </view>
+        </view>
+        <view class="s_bot">
+            <view class="b_left">
+                <view class="left"><view class="i">余</view><view class="span">{{item.VoucherPrice}}</view><view class="em">元</view></view>
+            </view>
+            <view class="b_right">
+                {{item.BatchName}}
+            </view>
+        </view>
+        <view class="icon">
+                <image src="http://cache.jiangxinxiaozhen.com/WD/APP/completed.png" />
+                <image src="http://cache.jiangxinxiaozhen.com/WD/APP/expired.png" />
+        </view>
+        </view>
+
+    </view>
+  </block>
+</radio-group>
+<view catchtap='onBack' data-paidbycardisenabled='false' data-giftcardno='-1' class="voucherBtn">
+  <text>不使用小镇币</text>
+</view>
+
+<!-- 
+<view
+      class="li"
+      wx:for="{{notUserList}}"
+      wx:key="id"
+      >
+      <view class="s_top">
+          <view class="t_left">
+              <view class="span">小镇币</view>
+              <view class="i">面值{{item.CardSum}}</view>
+          </view>
+          <view class="t_right">
+              <view class="span" bindtap="handleMenuTap" data-cardId="{{item.Cardid}}"><image src="http://cache.jiangxinxiaozhen.com/WD/APP/menu.png"/></view>
+              <view class="i">{{item.Begintime}}-{{item.Endtime}}</view>
+          </view>
+      </view>
+      <view class="s_bot">
+          <view class="b_left">
+              <view class="left"><view class="i">余</view><view class="span">{{item.VoucherPrice}}</view><view class="em">元</view></view>
+          </view>
+          <view class="b_right">
+              {{item.BatchName}}
+          </view>
+      </view>
+      <view class="icon">
+              <image src="http://cache.jiangxinxiaozhen.com/WD/APP/completed.png" />
+              <image src="http://cache.jiangxinxiaozhen.com/WD/APP/expired.png" />
+      </view>
+</view> -->

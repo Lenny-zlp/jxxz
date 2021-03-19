@@ -1,0 +1,55 @@
+<!--首页-->
+<view class="homePage">
+  <!-- 导航栏 -->
+  <view class="container">
+    <!-- tab导航栏 -->
+    <!-- scroll-left属性可以控制滚动条位置 -->
+    <!-- scroll-with-animation滚动添加动画过渡 -->
+    <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}" enable-flex="{{navData.length>5?false:true}}">
+      <block wx:for="{{navData}}" wx:for-index="idx" wx:key="HotProductId">
+        <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" bindtap="switchNav" data-WeekCategoryId="{{item.WeekCategoryId}}">
+          <view class="name">{{item.WeekCategoryName}}</view>
+          <view class="lin"></view>
+        </view>
+      </block>
+    </scroll-view>
+    <!-- 页面内容 -->
+    <swiper class="tab-box" current="{{currentTab}}" duration="300" bindchange="switchTab">
+      <swiper-item wx:for="{{navData}}" wx:for-index="idx" wx:key="idx" class="tab-content" data-HotProductid="{{item.HotProductId}}">
+        <view class="ul" wx:if="{{currentTab==idx}}">
+          <navigator class="list" wx:for="{{productList}}" wx:key="index" hover-class='none' data-sku="{{item.ProductCode}}" bindtap="goDetail" url='/pages/product/product?sku={{item.ProductCode}}'>
+           <view class="list_item" style="margin-bottom: 10rpx;">
+               <view class="l_left">
+                   <image src="{{item.ImgUrl}}" />
+                   <view class="font" wx:if="{{item.IsShowLittleStock==1}}">{{item.LittleStockStr}}</view>
+                   <text class="saleOver" wx:if="{{item.state==1 && item.Stock==0}}">已售馨</text>
+               </view>
+               <view class="l_right">
+                   <view class="title">{{item.ProductName}}</view>
+                   <view class="text">{{item.remarks}}</view>
+                   <view class="price">
+                     <view class="p_left">
+                       <!-- 会员价 -->
+                         <view wx:if="{{item.WeekVersion==0}}" class="vprice" style="align-items: center;"><view class="span" class="v_price">￥{{item.ActivityPrice}} <text style="font-size:22rpx;">{{item.smallest}}</text></view><view class="span txt" style="height: 25rpx; line-height: 25rpx;text-align: center;">{{item.WeekSpan}}</view></view>
+                         <!-- 补贴价 -->
+                         <view wx:if="{{item.WeekVersion==1}}" class="b_sub"><view class="span">￥{{item.ActivityPrice}}<text style="font-size:22rpx;">{{item.smallest}}</text></view><view class="i">{{item.WeekSpan}}</view></view>
+                         <view class="xprice">￥{{item.SPrice}}<text class="span">小镇价</text></view>
+                     </view>
+                     <view class="p_right">
+                         <image catchtap="addcart" data-code="{{item.ProductCode}}" data-StyleCount="{{item.StyleCount}}" wx:if="{{item.Stock!=0}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/redcart.png" />
+                         <image catchtap="stop" wx:else src="http://cache.jiangxinxiaozhen.com/WD/APP/huicart.png" />
+                     </view>
+                 </view>
+               </view>
+           </view>
+          </navigator>
+          <view wx:if="{{productList.length==0}}" class="nodata">
+            <image src="http://cache.jiangxinxiaozhen.com/WD/APP/nodatacategory.png">
+            </image>
+            <view>暂无数据！</view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>

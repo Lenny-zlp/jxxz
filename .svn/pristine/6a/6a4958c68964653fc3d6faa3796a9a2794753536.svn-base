@@ -1,0 +1,253 @@
+
+  .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: #eee;
+  }
+  .botLine {
+    width: 100%;
+    height: 60rpx;
+    font-size: 24rpx;
+    /* line-height: 90rpx; */
+    text-align: center;
+    background-color: #eee;
+  }
+  .join {
+    width: 750rpx;
+    height: 446rpx;
+    background-color: #f4f4f4;
+  }
+  .join image {
+    width: 100%;
+    height: 100%;
+  }
+  .liveRoomList {
+    width: 750rpx;
+    box-sizing: border-box;
+    padding: 0 35rpx;
+    border-radius: 40rpx 40rpx 0 0;
+    background-color: #eee;
+    position: relative;
+    top: -40rpx;
+    overflow: hidden;
+  }
+  .liveRoomList .liveRoomItem {
+    width: 680rpx;
+    /* height: 690rpx; */
+    margin-top: 24rpx;
+    background-color: #fff;
+  }
+  .liveRoomList .liveRoomItem .l_pic{
+    width: 680rpx;
+    height: 544rpx;
+    position: relative;
+    overflow: hidden;
+  }
+  .liveRoomList .liveRoomItem .l_pic .s_live {
+    width: 160rpx;
+    height: 40rpx;
+    position: absolute;
+    top: 28rpx;
+    left: 20rpx;
+  }
+  .liveRoomList .liveRoomItem .l_pic .s_live image, .liveRoomList .liveRoomItem .l_pic .s_replay image {
+    width: 100%;
+    height: 100%;
+  }
+  .liveRoomList .liveRoomItem .l_pic .s_replay {
+    width: 58rpx;
+    height: 40rpx;
+    position: absolute;
+    top: 28rpx;
+    right: 20rpx;
+  }
+  .liveRoomList .liveRoomItem .l_pic .shareimg{
+    width: 100%;
+    height: 100%;
+  }
+  .l_bot {
+    width: 100%;
+    /* height: 146rpx; */
+    font-size: 22rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 24rpx 28rpx;
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+  }
+  .l_bot .title {
+    font-size: 30rpx;
+    font-weight: 700;
+    color: #303030;
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+  }
+  .l_bot .liveTime {
+   display: flex;
+   margin-top: 20rpx;
+  }
+  .l_bot .liveTime .txt {
+    font-size: 22rpx;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+  }
+  .l_bot .liveTime .l_left {
+    width: 210rpx;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .l_bot .liveTime .l_left .userbox{
+   width: 34rpx;
+   height: 34rpx;
+   margin-right: 12rpx;
+   border-radius: 50%;
+   overflow: hidden;
+  }
+  .l_bot .liveTime .l_left .userbox image {
+   width: 100%;
+   height: 100%;
+  }
+  .l_bot .liveTime .l_right {
+    display: flex;
+  }
+  .l_bot .liveTime .l_right .imgbox{
+   width: 34rpx;
+   height: 26rpx;
+   margin: 0 12rpx 0 14rpx;
+   /* overflow: hidden; */
+  }
+  .l_bot .liveTime .imgbox image {
+   width: 100%;
+   height: 100%;
+  }
+  .img {
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+    margin-bottom: 200px;
+  }
+  .img image {
+    width: 100%;
+    height: 100%;
+  }
+  .pop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 3;
+  }
+  .pop .bot {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 450rpx;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .pop .bot .b_top {
+    width: 100%;
+    height: 350rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }  
+  .pop .bot .b_top image {
+    width: 100rpx;
+    height: 100rpx;
+  }  
+  .pop .bot .left, .pop .bot .right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 350rpx;
+    text-align: center;
+  }
+  .pop .bot .b_bot {
+    width: 100%;
+    height: 100rpx;
+    text-align: center;
+    line-height: 100rpx;
+  }
+  .picPop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .picPop .pic {
+    position: relative;
+    width: 560rpx;
+    height: 1000rpx;
+    margin: 40rpx auto;
+    border-radius: 10rpx;
+  }
+  .picPop .pic image {
+    width: 100%;
+    height: 100%;
+  }
+  .picPop .pic .icon {
+    position: absolute;
+    top: -25rpx;
+    right: -25rpx;
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 50%;
+    background-color: #222;
+  }
+  .picPop button {
+    width: 520rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    text-align: center;
+    background-color: #f00;
+    font-size: 32rpx;
+    color: #fff;
+    border-radius: 44rpx!important;
+    margin: 40rpx auto;
+  }
+  .push {
+    position: fixed;
+    top: 20rpx;
+    left: 0;
+    padding: 0 25rpx;
+    height: 50rpx;
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    border-radius: 0 25rpx 25rpx 0;
+    z-index: 2;
+  }
+  .push image {
+    width: 44rpx;
+    height: 44rpx;
+    border-radius: 50%;
+    margin-right: 20rpx;
+  }
+  .push .namefont {
+    color: #fff;
+    font-size: 24rpx;
+  }

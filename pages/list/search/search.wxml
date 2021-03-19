@@ -1,0 +1,28 @@
+<wxs module="dateUtil" src="../../../pages/until/convertUtil.wxs"></wxs>
+<view class="productList-wrap">
+  <block wx:for="{{list}}" wx:key="index">
+    <navigator class="productList" hover-class='none' url="/pages/product/product?sku={{item.ProductCode}}&groupid=0&grouplogid=-1">
+      <image src="{{item.Img}}"></image>
+      <text>{{item.ProductName}}</text>
+      <!-- 小镇市集 || -->
+      <view wx:if="{{item.LabelType!=2}}" style="color:#eb5902;font-size:30rpx;" class="priceWrap"><!-- ￥{{dateUtil.replace(item.MarketPrice)>0 ?item.MarketPrice:item.Price}} -->
+        <!-- 补贴价 -->
+        <view wx:if="{{item.LabelType==1&&item.MarketVersion==1}}" class="b_sub">
+          <text class="span">￥{{item.MarketPrice}}</text>
+          <text class="i">{{item.PriceLabel}}</text>
+        </view>
+        <!-- 会员价 || -->
+        <view wx:else class="row">
+          <view class="vsprice-template" style="color:#{{item.HomeFontcolor==null?'eb5902':item.HomeFontcolor}}">¥{{item.MarketPrice>0?item.MarketPrice:item.Price}}</view>
+          <view wx:if="{{dateUtil.replace(item.MarketPrice)>0}}" class="vipprice">{{item.PriceLabel}}</view>
+        </view>
+          <view class="vvprice-template" wx:if="{{(item.vprice-item.Price)>0}}" style="color:#{{item.HomeBgcolor==null?'999':item.HomeFontcolor}}">¥{{item.vprice}}</view>
+      </view>
+      <!-- 限时购 -->
+      <view wx:if="{{item.LabelType==2}}" style="display: flex; align-items: center; color:#eb5902;" class="priceWrap">￥{{dateUtil.replace(item.MarketPrice)>0 ?item.MarketPrice:item.Price}}
+        <text class="limit">{{item.PriceLabel}}</text>
+      </view>
+      <text style="color:#888;font-size:24rpx; {{dateUtil.replace(item.MarketPrice)>0?'opacity:1;':'opacity:0;'}}">￥{{item.Price}}<text style="font-size:20rpx;padding-left:10rpx;">小镇价</text></text>
+    </navigator>
+  </block>
+</view>

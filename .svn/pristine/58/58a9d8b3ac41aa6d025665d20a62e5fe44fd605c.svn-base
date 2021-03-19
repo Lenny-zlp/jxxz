@@ -1,0 +1,25 @@
+<!-- <view class="t_header">评价</view> -->
+
+<view class="t_content">
+    <vie
+    class="comment"
+    wx:for="{{commentList}}"
+    wx:key="*this"
+    >
+        <navigator class="left">
+            <view class="comment_l">
+                <image src="{{item.PImg}}" alt="" />
+            </view>
+            <view class="comment_p">
+                <view class="fontf item">{{item.ProductName}}</view>
+                <view class="fonts item">{{item.PColor}}</view>
+                <view class="fontt item">收货时间：{{item.CompleteTime}}</view>
+            </view>
+        </navigator>
+        <view class="gocomment" data-commentItem="{{item}}" bindtap="to_reviews"><text>去评价</text></view>
+    </vie>
+    <view class="nodata hid">
+        <image src="https://cache.jiangxinxiaozhen.com/WD/APP/pro/nocommented.png" mode="widthFix" />
+        <text>暂无待评价数据</text>
+    </view>
+</view>

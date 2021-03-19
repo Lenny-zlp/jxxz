@@ -1,0 +1,146 @@
+/* @import "../voucher/voucherlist.wxss"; */
+.li {
+  /* width:660rpx;margin:20rpx auto 40rpx;height:240rpx; */
+  height: 258rpx;
+  border: 1rpx solid #f3604e;
+  border-radius: 10rpx;
+  background-color: #f1D6D7;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-bottom: 24rpx;
+}
+.li .s_top {
+  height: 64rpx;
+  padding: 20rpx 28rpx 16rpx;
+  background-color: #f3604e;
+  display: flex;
+  justify-content: space-around;
+}
+.li .s_top .t_left {
+  display: flex;
+  flex-direction: column;
+  width: 260rpx;
+}
+.li .s_top .t_left .span {
+  height: 28rpx;
+  font-size: 28rpx;
+  color: #fff;
+  margin-bottom: 14rpx;
+}
+.li .s_top .t_left .i {
+  height: 20rpx;
+  font-size: 20rpx;
+  color: #fff;
+}
+.li .s_top .t_right {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  flex: 1;
+}
+.li .s_top .t_right .span {
+  display: inline-block;
+  width: 26rpx;
+  height: 32rpx;
+  cursor: pointer;
+}
+.li .s_top .t_right .span image {
+  width: 26rpx;
+  height: 32rpx;
+  cursor: pointer;
+}
+.li .s_top .t_right .i {
+  font-size: 22rpx;
+  color: #fff;
+  margin-top: 15rpx;
+}
+.li .s_bot {
+  display: flex;
+  height: 160rpx;
+  justify-content: center;
+  align-items: center;
+}
+.li .s_bot .b_left .left {
+  height: 72rpx;
+  width: 260rpx;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  border-right: 1rpx solid #f3604e;
+}
+.li .s_bot .b_left .left .i {
+  font-size: 26rpx;
+  color: #f3604d;
+}
+.li .s_bot .b_left .left .span {
+  height: 66rpx;
+  font-size: 66rpx;
+  color: #f36150;
+  margin-left: 10rpx;
+}
+.li .s_bot .b_left .left .em {
+  font-size: 36rpx;
+  color: #f36150;
+}
+.li .s_bot .b_right {
+  flex: 1;
+  padding: 60rpx;
+  font-size: 30rpx;
+  color: #f36150;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.voucherL text {
+  font-size: 50rpx;
+}
+
+.checkedBg {
+  transform: scale(0.6);
+}
+
+.voucherBtn {
+  height: 100rpx;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background: #fff;
+  padding-top: 16rpx;
+}
+
+.voucherBtn text {
+  width: 90%;
+  height: 70rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border: 1px solid #eb5902;
+  color: #eb5902;
+  border-radius: 5px;
+  display: block;
+  margin: 0 auto;
+}
+
+.voucherL text::before {
+  bottom: 6rpx;
+}
+
+.checkWrap {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 2%;
+  box-sizing: border-box;
+  margin: 20rpx auto 40rpx;
+  /* height: 240rpx; */
+  align-items: center;
+}
+
+.voucherWrap {
+  margin: 0 !important;
+}
+
+.voucherList {
+  margin: 0;
+}

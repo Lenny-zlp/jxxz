@@ -1,0 +1,77 @@
+
+  <view class="box">
+    <!-- <view class="img">
+      <image src='{{imgurl}}'></image>
+    </view> -->
+    <view class="join"><!-- clickSetCode -->
+      <image catchtap="clickShow" src="{{topImage}}"></image>
+    </view>
+    <!-- 推荐人 -->
+    <!-- <view class="push">
+      <image src="{{head}}"></image>
+      <view class="namefont">{{nickName}} 推荐</view>
+    </view> -->
+    <view class="liveRoomList">
+      <block wx:for="{{liveList}}" wx:key="index">
+        <view class="liveRoomItem" bindtap="joinLive" data-roomId="{{item.roomid}}">
+          <view class="l_pic">
+            <image class="shareimg" src="{{item.share_img}}"></image>
+            <view class="s_live">
+              <!-- 直播状态说明 101 直播中； 102 未开始 ；103 已结束；104 禁播；105 暂停中；106 异常；107 已过期 -->
+              <!-- 即将开始 102-->
+              <image wx:if="{{item.live_status==102}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/soon.png"></image>
+              <!-- 直播中 101 105 106-->
+              <image wx:if="{{item.live_status==101 || item.live_status==105 || item.live_status==106}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/living.png"></image>
+              <!-- 已结束 103 104 107-->
+              <image wx:if="{{item.live_status==103 || item.live_status==104 || item.live_status==107}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/relive.png"></image>
+            </view>
+            <view class="s_replay">
+              <image src="http://cache.jiangxinxiaozhen.com/WD/APP/play.png"></image>
+            </view>
+          </view>
+          <view class="l_bot">
+            <view class="title">{{item.name}}</view>
+            <view class="liveTime">
+              <view class="l_left">
+                <view class="userbox"><image src="{{item.share_img}}"></image></view>
+                <text class="txt">{{item.anchor_name}}</text>
+              </view>
+              <view class="l_right">
+                <view class="imgbox"><image src="http://cache.jiangxinxiaozhen.com/WD/APP/playtime.png"></image></view>
+                <text class="txt">开播时间: {{item.start_time}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <!-- <view class="botLine">到底啦~</view> -->
+  </view>
+  <!-- 弹层 -->
+  <view class="pop" wx:if="{{isShow}}" bindtap="closePop">
+    <view class="bot">
+      <view class="b_top">
+        <button open-type="{{isshare?'share':''}}" catchtap="{{isshare?'':'shareCard'}}" class="left"><!--  catchtap="shareCard" -->
+          <view class="wexin"><image src="http://cache.jiangxinxiaozhen.com/WD/APP/wexin.png"></image></view>
+          <text>分享微信</text>
+        </button>
+        <button class="right" catchtap="sharePic">
+          <view class="wexin"><image src="http://cache.jiangxinxiaozhen.com/WD/APP/savePic.png"></image></view>
+          <text>生成海报</text>
+        </button>
+      </view>
+      <view class="b_bot" catchtap="closePop">取消</view>
+    </view>
+  </view>
+  <!-- 下载图片 -->
+  <view class="picPop" wx:if="{{isHide}}">
+    <view>
+      <view class="pic">
+        <image src="data:image/png;base64,{{sharePic}}"></image>
+        <view class="icon" bindtap="closeBtn">
+          <image src="http://cache.jiangxinxiaozhen.com/WD/APP/close.png"></image>
+        </view>
+      </view>
+      <button bindtap="savePic">保存图片</button>
+    </view>
+  </view>

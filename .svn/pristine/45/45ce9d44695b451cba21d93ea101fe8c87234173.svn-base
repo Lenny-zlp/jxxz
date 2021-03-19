@@ -1,0 +1,465 @@
+{
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": false,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "bundle": false,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": true,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "useApiHostProcess": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.12.2",
+  "appid": "wxc4f4398d9d3dbe86",
+  "projectname": "Wx_xiaochengxu",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "scripts": {},
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": 0,
+          "name": "登录",
+          "pathName": "pages/user/inviteNew/inviteNew/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 1,
+          "name": "邀新",
+          "pathName": "pages/list/list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 2,
+          "name": "团购",
+          "pathName": "pages/collage/collage",
+          "query": "v=v2&shopid=23",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "首页",
+          "pathName": "pages/home/shop/shop",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "邀请码",
+          "pathName": "pages/user/invitenum/invitenum",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 5,
+          "name": "开通金卡",
+          "pathName": "pages/user/recommend/goldcardmesg/goldcardmesg",
+          "query": "productcode=0000403",
+          "scene": null
+        },
+        {
+          "id": 6,
+          "name": "支付合同",
+          "pathName": "pages/user/recommend/payGoldcard/payGoldcard",
+          "query": "id=29639",
+          "scene": null
+        },
+        {
+          "id": 7,
+          "name": "绑定手机",
+          "pathName": "pages/user/login/wxlogin/wxlogin",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 8,
+          "name": "原登录",
+          "pathName": "pages/user/login/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 9,
+          "name": "拼团成功",
+          "pathName": "pages/collage/paysuccess/paysuccess",
+          "query": "OrderCode=419042400041",
+          "scene": null
+        },
+        {
+          "id": 10,
+          "name": "拼团详情",
+          "pathName": "pages/user/user",
+          "query": "OrderCode=419042900039&v=0",
+          "scene": null
+        },
+        {
+          "id": 11,
+          "name": "绑定手机号",
+          "pathName": "pages/user/login/wxlogin/wxlogin",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "绑定手机号",
+          "pathName": "pages/user/login/bindingNum/bindingNum",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 13,
+          "name": "绑定手机号",
+          "pathName": "pages/user/login/bindingNum/bindingNum",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "绑定手机号",
+          "pathName": "pages/order/orderdetail/detail",
+          "query": "ordercode=419050900953",
+          "scene": null
+        },
+        {
+          "id": 15,
+          "name": "单品页面",
+          "pathName": "pages/product/product",
+          "query": "productcode=0000002",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "资产",
+          "pathName": "pages/user/myBag/fund/stream/streamlist",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "拼团列表",
+          "pathName": "pages/collage/collage",
+          "query": "v=v2",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "每周一品",
+          "pathName": "pages/home/weekly/weekly",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 21,
+          "name": "去评价列表",
+          "pathName": "pages/order/goCommentList/goCommentList",
+          "query": "[{}]",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "评价",
+          "pathName": "pages/order/commentList/commentList",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 21,
+          "name": "热销排行榜",
+          "pathName": "pages/product/hotSellProduct/hotSellProduct",
+          "query": "HotProductid=1&HotName=饮食",
+          "scene": null
+        },
+        {
+          "id": 24,
+          "name": "评价页",
+          "pathName": "pages/order/comment/comment",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "评价页面",
+          "pathName": "pages/order/comment/comment",
+          "query": "[{CompleteTime: \"1970/01/01 12:00:00\" OrderCode: \"420042300006\" PColor: \"300ml/瓶 一瓶\" PImg: \"http://cache.jiangxinxiaozhen.com//product/2019/1/3/0000551/2019_1_3_16_29_27_4090.jpg\" ProductCode: \"0000551\" ProductName: \"KEBERAY玻尿酸净润卸妆水\"}]",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "小镇币",
+          "pathName": "pages/user/myBag/voucher/voucherlist",
+          "query": "[{CompleteTime: \"1970/01/01 12:00:00\" OrderCode: \"420042300006\" PColor: \"300ml/瓶 一瓶\" PImg: \"http://cache.jiangxinxiaozhen.com//product/2019/1/3/0000551/2019_1_3_16_29_27_4090.jpg\" ProductCode: \"0000551\" ProductName: \"KEBERAY玻尿酸净润卸妆水\"}]",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "评价订单页",
+          "pathName": "pages/order/goCommentList/goCommentList",
+          "query": "{detail: \"{\"OrderCode\":\"420042300006\",\"ProductCode\":\"0000551…7_4090.jpg\",\"CompleteTime\":\"1970/01/01 12:00:00\"}\"}",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "优惠券",
+          "pathName": "pages/user/myBag/coupon/couponlist",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 29,
+          "name": "全部评价",
+          "pathName": "pages/product/discuss/list",
+          "query": "sku=0000429&count=1681",
+          "scene": null
+        },
+        {
+          "id": 30,
+          "name": "折叠评价",
+          "pathName": "pages/order/flodList/flodList",
+          "query": "sku=0000006",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "详情页",
+          "pathName": "pages/product/product",
+          "query": "sku=0000723&groupid=-1&grouplogid=0",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "购物车",
+          "pathName": "pages/shoppingcart/shoppingcart",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "地址管理",
+          "pathName": "pages/shoppingcart/address/list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 34,
+          "name": "自动识别地址",
+          "pathName": "pages/shoppingcart/address/list/edit",
+          "query": "addressId=&UserId=&fullname=&address=&provinceid=&cityid=&areaid=&provincename=&cityname=&areaname=&mobilephone=&phone=&postalcode=&type=0&isdefault=0&source=0&ordercode=",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "我的订单",
+          "pathName": "pages/order/orderlist/list",
+          "query": "[{}]",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/order/commentList/commentList",
+          "pathName": "pages/order/commentList/commentList",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 35,
+          "name": "商品详情页",
+          "pathName": "pages/product/product",
+          "query": "sku=0000524&groupid=-1&grouplogid=0",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "限时购",
+          "pathName": "pages/purchase/purchase",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 37,
+          "name": "商品详情页",
+          "pathName": "pages/product/product",
+          "query": "sku=0000470&groupid=0&grouplogid=-1",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "小镇市集",
+          "pathName": "pages/home/weekly/weekly",
+          "query": "sku=0000470&groupid=0&grouplogid=-1",
+          "scene": null
+        },
+        {
+          "id": 39,
+          "name": "pages/product/product",
+          "pathName": "pages/product/product",
+          "query": "sku=0000119&groupid=-1&grouplogid=0",
+          "scene": null
+        },
+        {
+          "id": 40,
+          "name": "直播",
+          "pathName": "pages/live/live",
+          "query": "sku=0000100&groupid=0&grouplogid=-1",
+          "scene": 1011
+        },
+        {
+          "id": -1,
+          "name": "市集导航详情页",
+          "pathName": "pages/home/weeklyDetail/weeklyDetail",
+          "query": "sku=0000470&groupid=0&grouplogid=-1",
+          "scene": null
+        },
+        {
+          "name": "海报",
+          "pathName": "pages/detail/detail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "分享进入",
+          "pathName": "pages/live/live",
+          "query": "scene=41",
+          "scene": 1008
+        },
+        {
+          "id": 44,
+          "name": "小镇市集分类",
+          "pathName": "pages/home/weekcategory/weekcategory",
+          "query": "WeekCategoryId=10",
+          "scene": null
+        },
+        {
+          "id": 45,
+          "name": "填写订单",
+          "pathName": "pages/shoppingcart/balance/balance",
+          "query": "sku=0000711&qty=1&userid=138989&buytype=1&dg=1&groupid=0&grouplogid=0",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "凑单商品",
+          "pathName": "pages/product/together/together",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 47,
+          "name": "订单结算",
+          "pathName": "pages/shoppingcart/balance/balance",
+          "query": "sku=0000514&qty=3&userid=2659&buytype=1&dg=1&groupid=0&grouplogid=0",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "促销优惠 订单详情页",
+          "pathName": "pages/order/orderdetail/detail",
+          "query": "ordercode=420090200001&status=-10",
+          "scene": null
+        },
+        {
+          "id": 49,
+          "name": "pages/user/invitenum/invitenum",
+          "pathName": "pages/user/invitenum/invitenum",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/product/product",
+          "pathName": "pages/product/product",
+          "query": "sku=0000321&groupid=-1&grouplogid=0",
+          "scene": 1036,
+          "referrerInfo": {
+            "appId": "wx4d63d2c00a4d6a0c"
+          }
+        },
+        {
+          "id": 51,
+          "name": "pages/colloge/collage",
+          "pathName": "pages/collage/collage",
+          "query": "rsShopId=46465",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/collage/collage",
+          "pathName": "pages/collage/collage",
+          "query": "rsShopId=46465",
+          "scene": 1008
+        },
+        {
+          "id": 53,
+          "name": "pages/live/live",
+          "pathName": "pages/live/live",
+          "query": "scene=94",
+          "scene": 1008
+        },
+        {
+          "id": 54,
+          "name": "绑定手机号",
+          "pathName": "pages/user/login/bindingTel/bindingTel",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/product/product",
+          "pathName": "pages/user/login/wxlogin/wxlogin",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "开通小镇会员",
+          "pathName": "pages/user/recommend/goldcardmesg/goldcardmesg",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

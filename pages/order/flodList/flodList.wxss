@@ -1,0 +1,70 @@
+.flod_comment {
+    padding-bottom:51px;
+}
+.flod_comment .li {
+    height: 104px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px 5px 15px;
+    border-top: 1px solid #eee;
+}
+
+.flod_comment .f_top {
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.f_top .f_left {
+    display: flex;
+    align-items: center;
+}
+
+.f_top .f_img {
+    width: 46px;
+    height: 46px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.f_top .f_img image {
+    width: 46px;
+    height: 46px;
+}
+
+.f_top .name {
+    font-size: 13px;
+}
+
+.f_star image {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 3px;
+}
+
+.f_top .i {
+    font-size: 10px;
+    color: #999;
+}
+
+.flod_comment .h5 {
+    font: 12px/20px PingFangSC-Light,helvetica,'Heiti SC','microsoft yahei',微软雅黑;
+    /* color: #666; */
+    padding-top: 5px;
+    padding-bottom: 8px;
+}
+
+.flod_comment .p {
+    font-size: 10px;
+    color: #999;
+}
+.flod_comment .loadp {
+    font-family: '微软雅黑';
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}

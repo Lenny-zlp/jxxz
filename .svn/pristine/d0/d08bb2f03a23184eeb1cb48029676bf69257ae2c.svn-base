@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-popup": "../../../components/vant/popup/index"
+  },
+  "navigationBarTitleText": "评价",
+  "enablePullDownRefresh":true,
+  "backgroundTextStyle":"dark"
+}

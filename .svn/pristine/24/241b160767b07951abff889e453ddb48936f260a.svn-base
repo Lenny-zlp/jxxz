@@ -1,0 +1,84 @@
+@import"../../order/paySuccess/paySuccess.wxss";
+page{background:#f4f4f4;}
+.productList {
+  float: left;
+  width: 50%;
+  overflow: hidden;
+  padding-bottom: 25rpx;
+  border-bottom: 1px solid #f4f4f4;
+  border-right: 1px solid #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  box-sizing:border-box;
+  background:#fff;
+}
+
+.productList:nth-child(2n) {
+  border-right: 0 none;
+}
+
+.productList>image {
+  display: block;
+  width: 375rpx;
+  height: 375rpx;
+}
+
+.productList>text,.priceWrap {
+  display: block;
+  width: 100%;
+  padding: 15rpx 15rpx 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 28rpx;
+  color: #505050;
+ 
+}
+.b_sub {
+  height: 38rpx;
+  display: flex;
+  overflow: hidden;
+}
+.b_sub .span {
+  border-radius: 20rpx 0 0 20rpx;
+  border: 1rpx solid #f00;
+  overflow: hidden;
+  padding: 10rpx;
+  line-height: 18rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #EB5902;
+  background-color: #fff;
+}
+.b_sub .i {
+  border-radius: 0 20rpx 20rpx 0;
+  border: 1rpx solid #f00;
+  font-size: 18rpx;
+  line-height: 18rpx;
+  padding: 10rpx;
+  color: #fff;
+  background-color: #f00;
+}
+
+.vipprice {
+  align-self: center;
+  margin-left: 10rpx;
+  height: 22rpx;
+  line-height: 22rpx;
+  color:#FFF;
+  background-color: #ee1a14;
+  padding: 2rpx;
+  border-radius: 4rpx;
+  font-size: 20rpx;
+}
+.limit {
+  margin-left: 10rpx;
+  height: 22rpx;
+  line-height: 22rpx;
+  color:#FFF;
+  background-color: #eb5902;
+  padding: 2rpx;
+  border-radius: 4rpx;
+  font-size: 20rpx;
+}

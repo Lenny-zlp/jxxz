@@ -1,0 +1,161 @@
+<!-- 凑单页 -->
+<view class="togetherPage">
+    <view class="container">
+        <!-- <template is="poPover" /> -->
+        <!-- 导航栏 -->
+        <scroll-view class="{{navs.length>5?'tabs':'retabs'}}" scroll-x="true" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}">
+            <view class="box">
+                <view class="navitem {{currentTab == index?'active':''}}" data-current="{{index}}" bindtap="switchNav"
+                    wx:for="{{navs}}" wx:key="index" data-MinPrice="{{item.MinPrice}}" data-MaxPrice="{{item.MaxPrice}}">
+                    <view class="div">
+                        <view class="priceTo">{{item.Span}}</view>
+                        <view class="lin"></view>
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
+        <!-- 页面内容 -->
+        <swiper class="tab-box" current="{{currentTab}}" duration="300" bindchange="switchTab">
+            <swiper-item wx:for="{{navs}}" wx:key="index" class="tab-content">
+                <scroll-view
+                bindscrolltolower="bindscrolltolower"
+                enable-flex
+                scroll-y="true"
+                class="content"
+                style="height: {{windowHeight}}px;"
+                wx:if="{{currentTab==index}}"
+                >
+                    <view class="item" wx:for="{{productList}}" wx:key="index" data-sku="{{item.ProductCode}}" bindtap="goDetail">
+                        <view class="top">
+                            <image src="{{item.ImgUrl}}" />
+                        </view>
+                        <view class="bot">
+                            <view class="name">{{item.ProductName}}</view>
+                            <!-- @*限时购*@ -->
+                            <view class="pric"><!-- wx:if="{{item.PurchaseId>0}}"-->
+                                <!-- 补贴价 -->
+                                <view wx:if="{{item.WkActivityId > 0 && item.WeekVersion != 0}}" class="b_sub">
+                                    <view class="b_price">￥{{item.Price}}</view>
+                                    <view class="font">{{item.WeekSpan}}</view>
+                                </view>
+                                <view wx:else class="p_price">￥{{item.Price}}</view>
+                                <!-- 限时购 -->
+                                <view class="font" wx:if="{{item.PurchaseId>0 && item.WkActivityId == 0}}">{{item.PurchaseSpan}}</view>
+                                <!-- 会员价 -->
+                                <view class="font" wx:if="{{item.WkActivityId > 0 && item.WeekVersion == 0}}" style="background-color: red">{{item.WeekSpan}}</view>
+                                <view class="cart" catchtap="addCart" data-product="{{item}}" data-sku="{{item.ProductCode}}" data-StyleCount="{{item.StyleCount}}">
+                                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/eb5905cart.png" />
+                                </view>
+                            </view>
+                            <!-- @*小镇价*@ 
+                            <view class="pric" wx:if="{{item.PurchaseId == 0 && item.WkActivityId == 0}}">
+                                <view class="p_price">￥{{item.Price}}</view>
+                                <view class="cart" catchtap="addCart" data-sku="{{item.ProductCode}}" data-StyleCount="{{item.StyleCount}}">
+                                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/eb5905cart.png" />
+                                </view>
+                            </view>-->
+                            <!-- @*会员价*@ 
+                            <view class="pric" wx:if="{{item.PurchaseId == 0 && item.WkActivityId > 0 && item.WeekVersion == 0}}">
+                                <view class="p_price">￥{{item.Price}}</view>
+                                <view class="font" style="background-color: red">{{item.WeekSpan}}</view>
+                                <view class="cart" catchtap="addCart" data-sku="{{item.ProductCode}}" data-StyleCount="{{item.StyleCount}}">
+                                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/eb5905cart.png" />
+                                </view>
+                            </view>-->
+                            <!-- @*补贴价*@ 
+                            <view class="pric" wx:if="{{item.PurchaseId == 0 && item.WkActivityId > 0 && item.WeekVersion != 0}}">
+                                <view class="b_sub">
+                                    <view class="p_price">￥{{item.Price}}</view>
+                                    <view class="font">{{item.WeekSpan}}</view>
+                                </view>
+                                <view class="cart" catchtap="addCart" data-sku="{{item.ProductCode}}" data-StyleCount="{{item.StyleCount}}">
+                                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/eb5905cart.png" />
+                                </view>
+                            </view>-->
+                        </view>
+                    </view>
+                    <view wx:if="{{!isHavvData}}" class="toast">------ 已经到底啦 ------</view>
+                </scroll-view>
+            </swiper-item>
+        </swiper>
+    </view>
+</view>
+<!-- 规格弹层 -->
+<view class="addCart-wrap" wx:if="{{addView==true}}">
+  <view style="height:100%;width:100%;" catchtap='addhide'></view>
+  <view class="addCart-content" style="height:{{height*0.6}}rpx">
+    <view class="closeWin" catchtap='addhide'>×</view>
+    <view class="addCart-pro-text">
+      <image lazy-load="true" src='{{modelproduct.img}}'></image>
+      <view class="addCart-pro-price">
+        <text>{{product.ProductName}}</text>
+        <!-- 价格  加入购物车弹窗-->
+        <view class="addPrice-wrap">
+          <!-- 此处不能换行 -->
+          <!-- 非市集  WkActivityId == 0  gold_price>0 为会员商品 黄标 反之 普通商品-->
+          <view class="addPrice" wx:if="{{product.WkActivityId==0&&modelproduct.WeekVersion==0}}">价格：¥{{modelproduct.sprice}}
+            <text style="color:#ff9402; font-size:24rpx;margin-left: 5px;" wx:if="{{modelproduct.IsVipBuy==1&&modelproduct.gold_price!='0'}}">¥{{modelproduct.gold_price}}<text style="padding:2rpx 10rpx;border-radius:3px;color:#fff;background:#ff9402; font-size:20rpx;margin-left:5px;">小镇会员</text>
+            </text>
+          </view>
+          <!--市集  补贴价: WkActivityId >0 && WeekVersion==1 
+                    会员价：WkActivityId >0 && WeekVersion==0-->
+          <view class="row-center weelySprice" wx:if="{{product.WkActivityId>0}}">
+            <!-- <text style="color:#e02e24">¥{{modelproduct.gold_price}}</text> -->
+              <!-- 补贴价 -->
+              <view wx:if="{{modelproduct.WeekVersion==1}}" class="b_sub">
+                <text class="span">￥{{modelproduct.gold_price}}</text>
+                <text class="i" style="color: #fff;">{{modelproduct.WeekSpan}}</text>
+              </view>
+          <!-- 会员价 -->
+            <block  wx:if="{{modelproduct.WeekVersion==0}}">
+              <view style="color:#ee1a14; font-size:24rpx;">¥{{modelproduct.gold_price}}</view>
+              <view style="font-size: 18rpx;border-radius: 4rpx;padding: 2rpx;color: #fff;margin-left: 10rpx;text-align: center;background-color: #f00;">{{modelproduct.WeekSpan}}</view>
+            </block>
+            <text style="color:#303030;padding-left:20rpx;font-size:26rpx;">小镇价 ¥{{modelproduct.sprice}}</text>
+          </view>
+        </view>
+        <!-- <text style="color:#303030;font-size:26rpx;">已选：{{modelproduct.Color+modelproduct.Hue}}</text> -->
+        <text style="color:#303030;font-size:26rpx;">已选：{{selcolor}} {{selhue}}</text>
+      </view>
+    </view>
+    <scroll-view scroll-y="true" style="height:{{height*0.6-108-275}}rpx" class="addScroll">
+      <view class="addScroll-content">
+        <view class="addRule">
+          <view>规格：</view>
+          <block wx:for="{{modelcolor}}" wx:key="index">
+            <text catchtap='colorbtn' data-color="{{item.Color}}" data-status='2'
+              class="{{item.Selected==1?'active':''}}">{{item.Color}}</text>
+          </block>
+        </view>
+        <view class="addcolor" wx:if="{{modelhue.length>0}}">
+          <view>尺码：</view>
+          <block wx:for="{{modelhue}}">
+            <text catchtap='huebtn' data-hue="{{item.Hue}}" data-status='2'
+              class="{{item.Selected==1?'active':''}}">{{item.Hue}}</text>
+          </block>
+        </view>
+        <view class="addNum">
+          <view>数量
+            <text wx:if="{{modelproduct.LimitCount>0}}"
+              style="font-size:24rpx;color:#eb5902;">{{modelproduct.LimitCountTips}}</text>
+          </view>
+          <view>
+            <text data-num="{{addnum}}" bindtap='subtract'>-</text>
+            <input value='{{addnum}}' class="inp-add" type='number' bindinput='checklimit'
+              data-limitcount='{{modelproduct.LimitCount}}'
+              data-limitcounttips='{{modelproduct.LimitCountTips}}'></input>
+            <text data-num="{{addnum}}" data-limitcount='{{modelproduct.LimitCount}}'
+              data-limitcounttips='{{modelproduct.LimitCountTips}}' bindtap='add'>+</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <!-- 暂不销售样式 -->
+      <button wx:if="{{status==0}}" class="nobuy" data-sku="{{modelproductcode}}" data-action="{{action}}" data-limitcount='{{modelproduct.LimitCount}}'
+      data-qty="{{addnum}}" data-dhtz='{{modelproductcode!=""&&modelproductstock==0?1:0}}' data-stock="{{modelproductstock}}" catchtap=''>暂不销售</button>
+      <!-- 其他样式 -->
+    <button wx:else class="{{modelproductcode!=''&&modelproductstock==0?'notice':'button'}}" data-sku="{{modelproductcode}}" data-action="{{action}}" data-limitcount='{{modelproduct.LimitCount}}'
+      data-qty="{{addnum}}" data-dhtz='{{modelproductcode!=""&&modelproductstock==0?1:0}}' data-stock="{{modelproductstock}}" catchtap='subbtn'>{{modelproductcode!=""&&modelproductstock==0?"到货通知":"确定"}}</button>
+  </view>
+
+</view>

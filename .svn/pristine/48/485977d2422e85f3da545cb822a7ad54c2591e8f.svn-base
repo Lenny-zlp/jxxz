@@ -1,0 +1,23 @@
+<view class="flod_comment">
+    <view wx:for="{{flodList}}" wx:key="id" class="li">
+        <view class="f_top">
+            <view class="f_left">
+                <view class="f_img">
+                    <image src="{{item.head}}" alt=""></image>
+                </view>
+                <view class="name">{{item.Receiver}}</view>
+                <view class="f_star">
+                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/pro/actStar.png" alt=""></image>
+                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/pro/actStar.png" alt=""></image>
+                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/pro/actStar.png" alt=""></image>
+                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/pro/actStar.png" alt=""></image>
+                    <image src="http://cache.jiangxinxiaozhen.com/WD/APP/pro/actStar.png" alt=""></image>
+                </view>
+            </view>
+            <view class="i">{{item.addtime}}</view>
+        </view>
+        <view class="h5">{{item.content}}</view>
+        <view class="p">{{item.color}}</view>
+    </view>
+    <view class="loadp" style="display:none">已加载完全部数据！！！</view>
+</view>

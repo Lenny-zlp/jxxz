@@ -1,0 +1,51 @@
+<wxs module="dateUtil" src="../../pages/until/convertUtil.wxs"></wxs>
+<template name="RecCom">
+  <view class="template-RecCom">
+    <view class="template-RecCom-title">
+      <text>{{title}}</text>
+    </view>
+    <block wx:for="{{list}}">
+      <view class="template-RecCom-List" data-sku="{{item.ProductCode}}" catchtap="hrefUrl">
+        <image src="{{item.Img}}"></image>
+        <view class="template-RecCom-detail">
+          <text>{{item.ProductName}}</text>
+          <!-- 小镇市集 -->
+          <block wx:if="{{item.WkActivityId>0}}">
+            <!-- 补贴价 -->
+            <view wx:if="{{item.WeekVersion==1}}" class="b_sub" style="position: relative;bottom: -10rpx;">
+              <text class="span">￥{{item.Price}}</text>
+              <text class="i">{{item.WeekSpan}}</text>
+            </view>
+            <!-- 会员价 -->
+            <view wx:if="{{item.WeekVersion==0}}" style="padding:20rpx 0 0; display: flex;align-items: center;">¥{{dateUtil.replace(item.Price)}}<text
+                wx:if="{{dateUtil.hasMin(item.Price)}}" style="font-size:20rpx;">起</text>
+              <!-- <image src="{{item.VipPriceImg}}" mode="widthFix"></image> -->
+              <view style="font-size: 18rpx;border-radius: 4rpx;padding: 2rpx;height: 24rpx;line-height: 24rpx; color: #fff;margin-left: 10rpx;text-align: center;background-color: #f00;">{{item.WeekSpan}}</view>
+            </view>
+            <view style="color:#888;font-size:22rpx; height:40rpx"><text
+                style="display:inline;">¥{{dateUtil.replace(item.SPrice)}}</text><text
+                wx:if="{{dateUtil.hasMin(item.SPrice)}}" style="font-size:20rpx;display:inline;">起</text> 小镇价</view>
+          </block>
+          <block wx:else>
+            <!-- 限时购 -->
+            <block wx:if="{{item.IsPurchase>0}}">
+              <view style="padding:20rpx 0 0; "><text>¥{{dateUtil.replace(item.Price)}}</text>
+                <text style="margin-left: 8rpx; height: 22rpx;line-height: 22rpx;color:#FFF;background-color: #eb5902;padding: 2rpx;border-radius: 4rpx; font-size: 20rpx;">限时购</text>
+              </view>
+              <view class="del" style="padding-left: 0;height: 40rpx;">¥{{item.VPrice}}</view>
+            </block>
+            <!-- 普通价 -->
+            <block wx:else>
+              <view style="padding:20rpx 0 0; ">¥{{dateUtil.replace(item.Price)}}
+                <text class="del" wx:if="{{item.VPrice>item.Price}}">¥{{item.VPrice}}</text>
+              </view>
+              <view style="opacity:0;height:40rpx">
+                <text>¥{{dateUtil.replace(item.SPrice)}}</text>
+              </view>
+            </block>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>

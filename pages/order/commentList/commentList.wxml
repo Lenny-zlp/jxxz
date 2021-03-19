@@ -1,0 +1,99 @@
+<view class="tabs">
+    <!-- <view class="t_header">评价</view> -->
+    <view class="t_title">
+        <view wx:for="{{tabs}}" wx:key="id" data-index="{{index}}" class="item {{item.isActive?'active':''}}"
+            bindtap="handleItemTap">
+            <text class="t_font">{{item.value}}{{item.active?'('+item.totalCount+')':''}}</text>
+            <text class="t_line"></text>
+        </view>
+    </view>
+    <view wx:if="{{tabs[0].isActive}}" class="t_content">
+        <block wx:for="{{commentList}}" wx:key="*this">
+            <view wx:if="{{commentList.length>0}}" class="comment">
+                <navigator class="left" url="/pages/product/product?sku={{item.ProductCode}}">
+                    <view class="comment_l">
+                        <image src="{{item.PImg}}" alt="" />
+                    </view>
+                    <view class="comment_p">
+                        <view class="fontf item">{{item.ProductName}}</view>
+                        <view class="fonts item">{{item.PColor}}</view>
+                        <view class="fontt item">收货时间：{{item.CompleteTime}}</view>
+                    </view>
+                </navigator>
+                <view class="gocomment" bindtap="to_reviews" data-commentItem="{{item}}" data-detailList="detailList">
+                    <text>去评价</text></view>
+            </view>
+        </block>
+        <view wx:if="{{commentList.length==0}}" class="nodata">
+            <image src="https://cache.jiangxinxiaozhen.com/WD/APP/pro/nocommented.png" mode="widthFix" />
+            <text>暂无待评价数据</text>
+            <navigator class="gohome" open-type="switchTab" url="/pages/home/shop/shop">去逛逛</navigator>
+        </view>
+    </view>
+    <view wx:elif="{{tabs[1].isActive}}" class="t_content">
+        <block wx:for="{{commentedList}}" wx:key="*this">
+            <view class="recomment" wx:if="{{commentedList.length>0}}">
+                <navigator class="y_top" data-sku="{{item.productcode}}" bindtap="goDetail">
+                    <view class="y_img">
+                        <image src="{{item.Img}}" alt="" />
+                    </view>
+                    <view class="y_grade">
+                        <view class="y_font">
+                            {{item.productname}}
+                        </view>
+                        <view class="y_spec">{{item.Color}}</view>
+                        <view class="y_star">
+                            <text class="i">评分:</text>
+                            <block wx:for="{{item.starArr}}" wx:for-item="i" wx:key="star">
+                                <image wx:if="{{i==1}}" src="https://cache.jiangxinxiaozhen.com/WD/APP/pro/actStar.png"></image>
+                                <image wx:if="{{i==0}}" src="https://cache.jiangxinxiaozhen.com/WD/APP/pro/grayStar.png"></image>
+                            </block>
+                        </view>
+                    </view>
+                    <!-- </view> -->
+                </navigator>
+
+                <view class="unresponse" wx:if="{{item.Imgs.length==0}}">
+                    <view class="p">{{item.content}}</view>
+                    <view class="appraise_time">评价时间: {{item.addtime}}</view>
+                    <view class="response {{item.ReplayContent===''?'hid':''}}">
+                        <text>{{item.ReplayContent}}</text>
+                    </view>
+                </view>
+                <view class="y_cont" wx:else>
+                    <view class="p">{{item.content}}</view>
+                    <view class="y_bot">
+                        <block wx:for="{{item.Imgs}}" wx:for-item="pic" wx:key="id" wx:for-index="itemIndex">
+                            <view class="y_image">
+                                <image src="{{pic.img}}" alt="" data-index="{{itemIndex}}"  data-imgs="{{item.Imgs}}" is-link bindtap="showbigimg"></image>
+                            </view>
+                        </block>
+                    </view>
+                    <view class="appraise_time">评价时间: {{item.addtime}}</view>
+                    <view class="response {{item.ReplayContent===''?'hid':''}}">
+                        <text>{{item.ReplayContent}}</text>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <view wx:if="{{commentedList.length==0}}" class="nodata">
+            <image src="https://cache.jiangxinxiaozhen.com/WD/APP/pro/nocommented.png" mode="widthFix" />
+            <text>暂无已评价数据</text>
+            <navigator class="gohome" open-type="switchTab" url="/pages/home/shop/shop">去逛逛</navigator>
+        </view>
+        <!-- 我是有底线的 -->
+        <view wx:if="{{isbotline}}" class="botline">----- 我是有底线的 -----</view>
+        <!-- 查看图片 -->
+        <view class="bigimgWrap" wx:if="{{show}}"  catchtap="onClose">
+            <icon type="clear" size="50rpx" class="closeIcon" catchtap='onClose'></icon>
+            <view class="pagenum">{{current+1}}/{{bigImgs.length}}</view>
+            <swiper class="bigimg" bindanimationfinish="touchSwiper" current="{{current}}">
+              <block wx:for="{{bigImgs}}">
+                <swiper-item>
+                  <image lazy-load="true" src="{{item.url}}" mode="widthFix"></image>
+                </swiper-item>
+              </block>
+            </swiper>
+          </view>
+    </view>
+</view>

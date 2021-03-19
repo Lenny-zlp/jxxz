@@ -1,0 +1,28 @@
+<view class="couponTab" catchtap='ontab'>
+  <text class="{{type==1?'active':''}}" data-type="1">未使用({{list.normal}})</text>
+  <text class="{{type==4?'active':''}}" data-type="4">已使用({{list.future}})</text>
+  <text class="{{type==5?'active':''}}" data-type="5">已过期({{list.expire}})</text>
+</view>
+<scroll-view wx:if="{{flag}}" scroll-y="true" style="height:{{height}}px"data-type="{{type}}" bindscrolltolower="scrollLoad">
+  <block wx:for="{{coupon}}" wx:for-index="ind">
+    <view wx:if="{{coupon.length>0}}" class="couponlist">
+      <view class="clearCoupon" data-cid='{{item.Id}}' data-type="{{type}}" bindtap='del' wx:if="{{type==5||type==4}}">×</view>
+      <view class="coupon-top {{bgGary?(item.IsUsed?'bgGaryColor':'bgGaryColor bgImage'):''}}">
+        <view class="coupon-left">
+          <text style="font-size:50rpx;margin-top:-15rpx;"><text style="font-size:34rpx;">￥</text>{{item.Price}}</text>
+          <text>{{item.satisfyprice==0?item.DiscountMsg:"满"+item.satisfyprice+"元可用"}}</text>
+        </view>
+        <view class="coupon-right">
+          <text style="font-size:30rpx; margin-bottom:15rpx;">{{item.CouponName}}</text>
+          <text style="opacity:.4">{{item.Begintime}} ~ {{item.Endtime}}</text>
+        </view>
+      </view>
+      <view class="couponText {{item.show?(item.arrow?'bgTop':'bg'):''}}" catchtap='moreRemarks'>
+        <text class="Remarks" data-ind="{{ind}}">{{item.Remarks}}</text>
+      </view>
+    </view>
+  </block>
+</scroll-view>
+  <view wx:if="{{coupon.length==0}}" class="nodata">
+    <image src="//cache.jiangxinxiaozhen.com/WD/shop/little/empty.png" />
+  </view>

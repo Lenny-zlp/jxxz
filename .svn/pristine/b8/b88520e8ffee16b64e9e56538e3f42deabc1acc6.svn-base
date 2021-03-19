@@ -1,0 +1,239 @@
+// pages/detail/detail.js
+import { request } from '../../until/request.js'
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    flag: false,
+    navData: [],// 商品分类列表
+    currentTab: 0,
+    navScrollLeft: 0,
+    productList: [],// 热销商品列表
+    HotProductid: 0,
+    addnum: 1
+  },
+  setTab: function (e) {
+    const edata = e.currentTarget.dataset;
+    this.setData({
+      showtab: edata.tabindex,
+
+    })
+  },
+
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (e) {
+    var user = wx.getStorageSync('user')
+    if (!user || user.mobile == '' || user.mobile == 'undefined' || user.rsShopId == 'undefined' || user.rsShopId == '') {
+      wx.hideShareMenu()
+    }
+    console.log('热销',e.scene)
+    if(e.scene) {
+      console.log('e', e.scene)
+      wx.setStorage({
+        key: "shopid",
+        data: e.scene
+      })
+    }
+    console.log(this.data.HotName,this.data.HotProductid)
+    this.setData({
+      HotName:e.HotName,
+      HotProductid: e.HotProductid
+    })
+    this.getNavData(this.data.HotName)
+    this.getDataList(this.data.HotProductid)
+    // 获取系统信息
+    wx.getSystemInfo({
+      success: (res) => {
+        this.setData({
+          pixelRatio: res.pixelRatio,
+          windowHeight: res.windowHeight,
+          windowWidth: res.windowWidth
+        })
+      },
+    })
+  },
+    /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var user = wx.getStorageSync('user')
+    if (!user || user.mobile == '' || user.mobile == 'undefined' || user.rsShopId == 'undefined' || user.rsShopId == '') {
+      wx.hideShareMenu()
+    } else {
+      wx.showShareMenu()
+    }
+  },
+
+  // 获取热销商品分类数据
+  getNavData (name) {
+    request({url:'/Product/HotProductList'})
+    .then(res=> {
+      let navData = res.data.data.HotProductNav
+      this.setData({
+        navData
+      })
+      const currentTab = res.data.data.HotProductNav.findIndex(item => item.HotName == name)
+    this.setData({ currentTab })
+    })
+  },
+  // 获取热销商品列表数据
+  getDataList (HotProductid) {
+    this.setData({
+      flag:false,
+      productList:[]
+    })
+    request({url:'/Product/HotProductList',data:{HotProductid:HotProductid}})
+    .then(res=> {
+      let productList = res.data.data.HotProductList || []
+      if(res.data.data.HotProductNav.length>0) {
+        res.data.data.HotProductNav.filter(v=> {
+          if(v.HotProductId == HotProductid) {
+            this.setData({
+              HotName: v.HotName
+            })
+          }
+        })
+      }
+      this.setData({
+        productList,
+        HotProductid: HotProductid
+      })
+      if(productList.length==0) {
+        this.setData({flag:true})
+      }
+      console.log('HotProductid',this.data.HotProductid,'HotName',this.data.HotName)
+    })
+  },
+  // 
+  // 导航栏点击项居中
+  switchNav(event) {
+   
+    // 下标
+    var cur = event.currentTarget.dataset.current;
+    // let HotProductid = event.currentTarget.dataset.hotproductid
+    // this.getDataList(HotProductid)
+      //每个tab选项宽度占1/5          手机宽度/5
+      var singleNavWidth = this.data.windowWidth / 5;
+      //tab选项居中                            
+      this.setData({
+        navScrollLeft: (cur - 2) * singleNavWidth
+      })
+      if (this.data.currentTab == cur) {
+        return false;
+      } else {
+        this.setData({
+          currentTab: cur,
+          flag:false,
+          productList:[]
+        })
+      }
+  },
+  // 滑动页面切换
+  switchTab(event) {
+    var cur = event.detail.current;
+    this.getDataList(this.data.navData[cur].HotProductId)
+    var singleNavWidth = this.data.windowWidth / 5;
+    this.setData({
+      currentTab: cur,
+      navScrollLeft: (cur - 2) * singleNavWidth
+    });
+  },
+  // 跳转详情页
+  goDetail(event) {
+    wx.navigateTo({
+      url: '/pages/product/product?sku=' + event.currentTarget.dataset.sku
+    });
+      
+  },
+
+    // 购物车点击事件
+    OnTapCart(e) {
+      var _userinfo = wx.getStorageSync('user');
+      // console.log(_userinfo, e)
+      const stylecount = e.currentTarget.dataset.stylecount
+      if (!_userinfo) {
+        wx.navigateTo({
+              url: '/pages/user/login/wxlogin/wxlogin?id=product',
+            })
+            return
+      }
+      if(stylecount == 1) {
+        const url = '/MyCart/AddItem?sku=' + e.currentTarget.dataset.sku + '&qty=' + this.data.addnum + '&userid=' + _userinfo.userid;
+        request({url})
+        .then( res => {
+          if (res.data.state.returnCode == 1) {
+            wx.showToast({
+                title: '添加购物车成功!',
+                icon: 'none',
+                duration: 2000
+              })
+          } else {
+            wx.showToast({
+                title: res.data.state.error,
+                icon: 'none',
+                duration: 2000
+              })
+          }
+        })
+      } else {
+        wx.navigateTo({
+          url: '/pages/product/product?sku=' + e.currentTarget.dataset.sku
+        });
+      }
+    },
+
+    // 到货提醒点击事件
+    OnNoticeTap(e) {
+      const { userid } = wx.getStorageSync("user");
+      const ProductCode = e.currentTarget.dataset.productcode
+      if (!userid) {
+        wx.navigateTo({
+          url: '/pages/user/login/wxlogin/wxlogin?id=product'
+        })
+        return
+      }
+      request({url:"/Product/ArrivalNotice",data:{UserId:userid,ProductCode}})
+      .then(res => {
+        // console.log(res)
+          wx.showToast({
+            title: res.data.state.error,
+            icon: 'none',
+            duration: 2000
+          })
+      })
+    },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+    /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function(res) {
+    var luser = wx.getStorageSync('user')
+    console.log('luser.rsShopId',luser.rsShopId,'HotProductid',this.data.HotProductid,'HotName',this.data.HotName)
+    if (luser)
+      return {
+        title: '排行榜列表',
+        imageUrl: this.data.productList[0].Img,
+        path: '/pages/product/hotSellProduct/hotSellProduct?scene=' + luser.rsShopId + '&HotName=' + this.data.HotName + '&HotProductid=' + this.data.HotProductid
+      }
+  },
+
+})

@@ -1,0 +1,75 @@
+<!--首页-->
+<view class="homePage">
+  <!-- 导航栏 -->
+  <view class="container">
+    <!-- tab导航栏 -->
+    <!-- scroll-left属性可以控制滚动条位置 -->
+    <!-- scroll-with-animation滚动添加动画过渡 -->
+    <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}">
+      <block wx:for="{{navData}}" wx:for-index="idx" wx:key="HotProductId">
+        <view class="nav-item {{currentTab == idx ?'active':''}}" data-current="{{idx}}" bindtap="switchNav" data-HotProductid="{{item.HotProductId}}">
+          <view class="name">{{item.HotName}}</view>
+          <view class="lin"></view>
+        </view>
+      </block>
+    </scroll-view>
+    <!-- 页面内容 -->
+    <swiper class="tab-box" current="{{currentTab}}" duration="300" bindchange="switchTab">
+      <swiper-item wx:for="{{navData}}" wx:for-index="idx" wx:key="idx" class="tab-content" data-HotProductid="{{item.HotProductId}}">
+        <view class="ul" wx:if="{{currentTab==idx}}">
+          <block wx:if="{{productList.length>0}}">
+            <view class="li" wx:for="{{productList}}" wx:key="ProductName" data-sku="{{item.ProductCode}}" bindtap="goDetail">
+            <view class="left">
+              <image src="{{item.Img}}" />
+            </view>
+            <view class="right">
+              <view class="h4">{{item.ProductName}}</view>
+              <view class="p">{{item.productOtherName}}</view>
+              <view class="bot">
+                <view class="b_left">
+                  <view wx:if="{{item.LabelType==1&&item.MarketVersion==0}}" class="b_vip">
+                      <text class="span">￥{{item.MarketPrice}}</text><text class="i">{{item.PriceLabel}}</text>
+                  </view>
+                  <view wx:elif="{{item.LabelType==2&&item.MarketVersion==0}}" class="b_limited">
+                      <text class="span">￥{{item.Price}}</text><text class="i">{{item.PriceLabel}}</text>
+                  </view>
+
+                  <view wx:elif="{{item.LabelType==1&&item.MarketVersion==1}}" class="b_sub">
+                    <text class="span">￥{{item.MarketPrice}}</text>
+                    <text class="i">{{item.PriceLabel}}</text>
+                  </view>
+                  <view wx:if="{{item.LabelType==1&&item.MarketPrice!='0'}}" class="b_xzprice">
+                    <text class="span">￥{{item.Price}}</text> <text class="i">小镇价</text>
+                  </view>
+                  <view wx:elif="{{item.LabelType==0&&item.MarketVersion==0&&item.MarketPrice=='0'}}" class="b_limited">
+                    <text class="span">￥{{item.Price}}</text>
+                  </view>
+                </view>
+                <view class="b_right">
+                  <view wx:if="{{item.Stock==0}}" class="b_notice" catchtap="OnNoticeTap" data-ProductCode="{{item.ProductCode}}">
+                                  到货通知
+                              </view>
+                  <view wx:else class="b_cart">
+                    <image catchtap="OnTapHuiCart" wx:if="{{item.MarketPrice > 0 && item.MarketStatus==0}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/huicart.png" />
+                    <image catchtap="OnTapCart" wx:else data-sku="{{item.ProductCode}}" data-StyleCount="{{item.StyleCount}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/cart.png" />
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="sign">
+              <text class="i">{{index+1}}</text>
+            </view>
+            </view>
+          </block>
+          <block wx:elif="{{flag}}">
+            <view class="nodata">
+              <image src="http://cache.jiangxinxiaozhen.com/WD/APP/hotsell.png">
+              </image>
+              <view>暂无排行数据！</view>
+            </view>
+          </block>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>

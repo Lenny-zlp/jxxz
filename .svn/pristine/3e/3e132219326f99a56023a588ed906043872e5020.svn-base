@@ -1,0 +1,44 @@
+<wxs module="dateUtil" src="../../pages/until/convertUtil.wxs"></wxs>
+<template name="moduleRem">
+  <view class="purchase-tem-wrap moduleRem-tem-wrap {{Stock==0?'over-tem':''}}">
+    <image src="{{ImgUrl}}" lazy-load="true"></image>
+    <view class="purchase-tem-text">
+
+      <text class="purchase-tem-title">{{ProductName}}</text>
+      <text class="purchase-tem-detail">{{Remark}}</text>
+
+      <view class="moduleRem-tem-price">
+        <!-- 小镇市集 -->
+        <block wx:if="{{WkActivityId>0}}">
+          <!-- <text class="moduleRem-tem-payP" style="background-image:url({{VipPriceImg}})">¥{{dateUtil.replace(Price)}}
+            <text wx:if="{{dateUtil.hasMin(Price)}}" style="font-size:24rpx !important;color:#ed1a15;">起</text>
+          </text> -->
+          <!-- 补贴价 -->
+          <view wx:if="{{WeekVersion==1}}" class="b_sub">
+            <text class="span">¥{{dateUtil.replace(Price)}}</text>
+            <text class="i">{{WeekSpan}}</text>
+          </view>
+          <!-- 会员价 -->
+          <view wx:if="{{WeekVersion==0}}" style="padding:20rpx 0 0; display: flex;align-items: center;color: #f00;">¥{{dateUtil.replace(Price)}}
+            <text wx:if="{{dateUtil.hasMin(Price)}}" style="font-size:20rpx;">起</text>
+            <view style="font-size: 18rpx;border-radius: 4rpx;padding: 2rpx;height: 24rpx;line-height: 24rpx; color: #fff;margin-left: 20rpx;text-align: center;background-color: #f00;">{{WeekSpan}}</view>
+          </view>
+
+          <view style="display:block; padding-top:20rpx;">¥{{dateUtil.replace(SPrice)}}
+            <text wx:if="{{dateUtil.hasMin(SPrice)}}" style="font-size:24rpx !important;">起</text>
+            <text style="font-size:24rpx !important;padding-left:10rpx;">小镇价</text>
+          </view>
+        </block>
+        <block wx:else>
+            <text class="moduleRem-tem-detail">¥{{dateUtil.replace(Price)}}</text>
+            <text wx:if="{{dateUtil.hasMin(Price)}}"class="moduleRem-tem-detail" style="font-size:24rpx !important;">起</text>
+            <text class="tem-del" wx:if="{{VPrice>Price}}">¥{{dateUtil.replace(VPrice)}}<text wx:if="{{dateUtil.hasMin(Price)}}" style="font-size:24rpx !important;">起</text>
+            </text>
+        </block>
+        <view class="moduleRem-tem-cart {{Stock==0?'over-cart':''}}" catchtap="addCart" data-stock="{{Stock}}" data-count="{{StyleListCount}}" data-sku="{{ProductCode}}">
+
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

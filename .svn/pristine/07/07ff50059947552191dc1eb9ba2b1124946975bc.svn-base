@@ -1,0 +1,341 @@
+<import src="../../template/template.wxml" />
+<view class="homeWrap" catchtap='onShoptop'>
+  <view class="row-between userTop">
+
+    <navigator class="usertopSearch row-between" url="/pages/product/searchView/searchView?keyword={{keyword}}" hover-class='none'>
+      <text>{{keyword}}</text>
+      <icon type="search" size="30rpx" color="#666"></icon>
+    </navigator>
+  </view>
+  <scroll-view class="menu-wrap" scroll-x="{{true}}" wx:if="{{menu.length!=0}}">
+    <view class="menu">
+      <block wx:for="{{menu}}" wx:for-index="ind" wx:key="ind">
+        <text data-code="{{item.Code}}" data-cur="{{ind}}" class="{{currentPage==item.currentIndex?'active':''}}" catchtap='onclickTab'>{{item.PageName}}</text>
+      </block>
+    </view>
+  </scroll-view>
+  <swiper class="screen-wrap" style="height:{{height}}rpx" current='{{currentPage}}' bindchange="swipertop" bindanimationfinish='onchange'>
+    <block wx:for="{{page}}" wx:for-item="pageItem" wx:key="page" wx:for-index="curr">
+      <swiper-item data-code="{{pageItem.Code}}">
+        <scroll-view class="content" scroll-y="{{true}}" scroll-top="{{scrollTop}}">
+
+          <block wx:for="{{pageItem.content}}" wx:key="key3" wx:for-index="ind" wx:for-item="itemWrap">
+            <view class="vmodule-wrap" wx:if="{{itemWrap.ModuleType == 1}}" style="{{itemWrap.showline==0?'margin-bottom:20rpx;':''}}">
+              <swiper class="swiper-wrap" indicator-dots="true" circular="true" indicator-active-color="#eb5902" autoplay="true">
+                <block wx:for="{{itemWrap.Module}}" wx:key="index">
+                  <swiper-item data-code='{{item.Code}}' data-linktype='{{item.LinkType}}' data-link='{{item.Link}}' data-sku="{{item.Code}}" catchtap='tapHref' style="border-radius:20rpx;overflow:hidden;">
+                    <image lazy-load="true" src="{{item.Img}}"></image>
+                  </swiper-item>
+                </block>
+              </swiper>
+
+            </view>
+            <!-- 每周一品 -->
+            <view class="everyWeek" style="{{itemWrap.showline==0?'margin-bottom:20rpx;':''}}" wx:if="{{itemWrap.ModuleType == 21}}">
+              <view class="weekTitle" wx:if="{{itemWrap.Title}}">{{itemWrap.Title}}</view>
+              <block wx:for="{{itemWrap.Module}}" wx:key="index">
+                <navigator class="weekContent" hover-class='none' url="/pages/home/weekly/weekly">
+                  <image src="{{item.Img}}" mode='widthFix'></image>
+                </navigator>
+              </block>
+            </view>
+            <view class="vmodule-wrap" wx:if="{{itemWrap.ModuleType == 16}}" style="{{itemWrap.showline==0?'margin-bottom:20rpx;':''}}" data-sku="{{itemWrap.Module[0].Code}}" data-linktype='{{itemWrap.Module[0].LinkType}}' catchtap='tapHref'>
+              <template is="starCollage" data="{{...itemWrap}}" />
+            </view>
+            <view class="vmodule-wrap" wx:if="{{itemWrap.ModuleType == 17}}" style="{{itemWrap.showline==0?'margin-bottom:20rpx;':''}}" catchtap='toCollage'>
+              <view style="background:#fff;">
+                <template is="starCollage" data="{{...itemWrap}}" />
+              </view>
+            </view>
+            <view class="sale-time-wrap" wx:if="{{itemWrap.ModuleType == 11&& saleTime!=''&&saleTime}}" style="{{itemWrap.showline==0?'margin-bottom:20rpx;':''}}" catchtap='toPurchase'>
+              <view class="sale-time">
+                <image lazy-load="true" src="{{itemWrap.Module[0].Product.Img}}"></image>
+                <view class="sale-time-title">{{itemWrap.Module[0].Product.xsg_title}}</view>
+                <view class="sale-time-text">{{itemWrap.Module[0].Product.xsg_tips}}</view>
+                <view class="sale-time-s">
+                  <view class="sale-time-day" wx:if="{{saleTime.d!='00'}}">
+                    <text>{{saleTime.d}}</text> 天 </view>
+                  <view class="sale-time-hour">
+                    <text>{{saleTime.h}}</text> : </view>
+                  <view class="sale-time-secend">
+                    <text>{{saleTime.s}}</text> : </view>
+                  <view class="sale-time-min">
+                    <text>{{saleTime.m}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <!-- 竖版产品 -->
+            <view class="vertical-wrap" wx:if="{{itemWrap.ModuleType == 3}}" style="{{itemWrap.showline==0?'margin-bottom:20rpx;':''}}">
+              <view>
+                <template is="title" data="{{...itemWrap}}" />
+              </view>
+              <view class="list-wrap">
+                <block wx:for="{{itemWrap.Module}}" wx:key="key5" wx:for-index="ind">
+                  <view class="listTopImage" data-code='{{item.Code}}' data-linktype='{{item.LinkType}}' data-link='{{item.Link}}' data-sku="{{item.Product.ProductCode}}" catchtap='tapHref' wx:if="{{item.Img!=null&& item.Product.sprice==null}}">
+                    <image lazy-load="true" src="{{item.Img}}" mode="widthFix"></image>
+                  </view>
+
+                  <view class="product-list" data-code='{{item.Code}}' data-linktype='{{item.LinkType}}' data-link='{{item.Link}}' data-sku="{{item.Product.ProductCode}}" catchtap='tapHref' wx:if="{{item.Img==null&& item.Product.sprice!=null}}">
+                    <template is="vertical-list" data="{{...item}}" />
+                  </view>
+                </block>
+              </view>
+            </view>
+            <view class="horizontal-wrap" wx:if="{{itemWrap.ModuleType == 2}}" style="{{itemWrap.showline==0?'margin-bottom:20rpx;':''}}">
+              <view>
+                <template is="title" data="{{...itemWrap}}" />
+              </view>
+              <block wx:for="{{itemWrap.Module}}" wx:key="index">
+                <view data-code='{{item.Code}}' data-linktype='{{item.LinkType}}' data-link='{{item.Link}}' data-sku="{{item.Code}}" catchtap='tapHref'>
+                  <image lazy-load="true" class="horizontal-img" lazy-load='true' mode="widthFix" src="{{item.Img}}"></image>
+                </view>
+              </block>
+            </view>
+            <!-- 热卖商品 -->
+            <view class="horizontal-img-wrap" wx:if="{{itemWrap.ModuleType == 9}}" style="{{itemWrap.showline==0?'margin-bottom:20rpx;':''}}">
+              <view style="border-bottom:1px solid #eee;">
+                <template is="title" data="{{...itemWrap}}" />
+              </view>
+              <block wx:for="{{itemWrap.Module}}" wx:key="key7">
+                <view class="horizontal-img-list" data-code='{{item.Code}}' data-linktype='{{item.LinkType}}' data-link='{{item.Link}}' data-sku="{{item.Product.ProductCode}}" catchtap='tapHref'>
+                  <template is="horizontalImg" data="{{...item}}" />
+                </view>
+              </block>
+            </view>
+            <view class="vertical-Bg-wrap" wx:if="{{itemWrap.ModuleType == 18}}" style="background:#{{itemWrap.bgcolor}};">
+              <image lazy-load="true" wx:if="{{itemWrap.bgimg}}" src="{{itemWrap.bgimg}}"></image>
+              <view class="vertical-Bg-list-wrap">
+                <block wx:for="{{itemWrap.Module}}" wx:key="module">
+                  <view class="vertical-Bg-list" data-code='{{item.Code}}' data-linktype='{{item.LinkType}}' data-link='{{item.Link}}' data-sku="{{item.Product.ProductCode}}" catchtap='tapHref'>
+                    <image src="{{item.Product.Homeicon}}" class="homeicon"></image>
+                    <image lazy-load="true" src="{{item.Product.Img}}" class="vertical-bg-img"></image>
+                    <!-- 已售罄水印 -->
+                    <text class="saleOver" wx:if="{{item.Product.Stock==0}}">已售馨</text>
+                    <view class="verticalBg-text">
+                      <view class="verticalBg-title">{{item.Product.ProductName}}</view> 
+                   
+                       <!-- 补贴价 -->
+                       <view wx:if="{{item.Product.LabelType==1&&item.Product.MarketVersion==1}}" class="b_sub" style="display: flex; align-items: center; justify-content: center;margin: 0;">
+                        <text class="span">￥{{item.Product.MarketPrice}}</text>
+                        <text class="i">{{item.Product.PriceLabel}}</text>
+                      </view>
+                      <!-- 会员价 || -->
+                      <view wx:else style="display: flex; align-items: center; justify-content: center;">
+                        <view wx:if="{{item.Product.MarketPrice>0}}" class="vsprice-template" style="color:#{{item.Product.HomeFontcolor==null?'eb5902':Product.HomeFontcolor}}">¥{{item.Product.MarketPrice>0?item.Product.MarketPrice:item.Product.Price}}</view>
+                        <view wx:if="{{item.Product.MarketPrice>0}}" style="font-size: 18rpx;border-radius: 4rpx;padding: 2rpx;height: 24rpx;line-height: 24rpx; color: #fff;margin-left: 10rpx;text-align: center;background-color: #f00;">{{item.Product.PriceLabel}}</view>
+                      </view>
+
+
+                      <!-- <view class="verticalBg-price" style="color:#{{itemWrap.PriceColor}}" wx:if="{{item.Product.MarketPrice>0}}">
+                        ¥
+                        <text style="color:#{{itemWrap.PriceColor}}">{{item.Product.MarketPrice}}</text>
+                       <image src="{{item.Product.PriceIcon}}" mode="widthFix" style="width:60rpx; display:inline-block;"></image>
+                      </view> -->
+                      <!--  -->
+                      <view class="verticalBg-price" style="color:#{{itemWrap.PriceColor}};height: 40rpx; padding: 0;" wx:if="{{item.Product.LabelType!=1}}">
+                        ¥
+                        <text style="color:#{{itemWrap.PriceColor}}">{{item.Product.Price}}</text>
+                        <text wx:if="{{(item.Product.vprice-item.Product.Price)>0}}">¥{{item.Product.vprice}}</text>
+                      </view>
+
+                      <view class="vertical-btn" style="color:#{{itemWrap.ButtonFontColor}};background:#{{itemWrap.ButtonColor}}">立即购买</view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </view>
+            <view class="hotView" wx:if="{{itemWrap.ModuleType == 14}}">
+              <block wx:for="{{itemWrap.hotview}}" wx:for-item="hotitem" wx:key="hotView">
+                <view class="hotView-list">
+                  <image lazy-load="true" src="{{hotitem.img}}" mode="widthFix" style="width:{{hotitem.Width*100}}rpx;height:{{hotitem.Height*100}}rpx"></image>
+                  <block wx:for="{{hotitem.coordsArrow}}" wx:for-index="index" wx:key="hotitem">
+                    <navigator wx:if="{{hotitem.typeArrow[index]=='1'}}" url="/pages/product/product?sku={{hotitem.skuArrow[index]}}" hover-class='none' style="width:{{item.width}}rpx;height:{{item.height}}rpx;top:{{item.top}}rpx;left:{{item.left}}rpx;"></navigator>
+                    <navigator wx:if="{{hotitem.typeArrow[index]=='5'}}" url="/pages/product/webView/webView?url={{hotitem.skuArrow[index]}}" hover-class='none' style="width:{{item.width}}rpx;height:{{item.height}}rpx;top:{{item.top}}rpx;left:{{item.left}}rpx;"></navigator>
+                  </block>
+                </view>
+              </block>
+            </view>
+            <view class="horizontal-Bg-wrap" wx:if="{{itemWrap.ModuleType == 19}}" style="background:#{{itemWrap.bgcolor}}">
+              <image lazy-load="true" src="{{itemWrap.bgimg}}"></image>
+              <view class="horizontalBG-list-wrap">
+                <block wx:for="{{itemWrap.Module}}" wx:key="module19">
+                  <view class="horizontalBG-list" data-code='{{item.Code}}' data-linktype='{{item.LinkType}}' data-link='{{item.Link}}' data-sku="{{item.Product.ProductCode}}" catchtap='tapHref'>
+                    <image src="{{item.Product.Homeicon}}" class="homeicon"></image>
+                    <image lazy-load="true" src="{{item.Product.Img}}" class="vertical-bg-img"></image>
+                    <view class="horizontalBG-text">
+                      <view class="horizontalBG-title">{{item.Product.ProductName}}</view>
+                      <view class="horizontalBG-Othertitle">{{item.Product.productOtherName}}</view>
+
+                      <!-- 补贴价 -->
+                      <view wx:if="{{item.Product.LabelType==1&&item.Product.MarketVersion==1}}" class="b_sub" style="position: absolute;bottom: 60rpx;">
+                        <text class="span">￥{{item.Product.MarketPrice}}</text>
+                        <text class="i">{{item.Product.PriceLabel}}</text>
+                      </view>
+                      <!-- 会员价 || -->
+                      <view wx:else style="display: flex; bottom:58rpx; align-items: center;" class="horizBg-price">
+                        <view wx:if="{{item.Product.MarketPrice>0}}" class="vsprice-template" style="color:#{{item.Product.HomeFontcolor==null?'eb5902':Product.HomeFontcolor}}">¥{{item.Product.MarketPrice>0?item.Product.MarketPrice:item.Product.Price}}</view>
+                        <view wx:if="{{item.Product.MarketPrice>0}}" style="font-size: 18rpx;border-radius: 4rpx;padding: 2rpx;height: 24rpx;line-height: 24rpx; color: #fff;margin-left: 10rpx;text-align: center;background-color: #f00;">{{item.Product.PriceLabel}}</view>
+                      </view>
+                      
+                      <!-- 会员价 -->
+                       <!-- <view class="horizBg-price" style="color:#{{itemWrap.PriceColor}};bottom:54rpx;" wx:if="{{item.Product.MarketPrice>0}}">
+                        ¥
+                        <text style="color:#{{itemWrap.PriceColor}}">{{item.Product.MarketPrice}}</text>
+                       <image src="{{item.Product.PriceIcon}}" mode="widthFix" style="width:60rpx; display:inline-block;"></image>
+                      </view> -->
+                      <!-- 小镇价 -->
+                        <view class="horizBg-price" wx:if="{{item.Product.MarketPrice>0}}" style="color:#999;bottom:26rpx">
+                        ¥{{item.Product.Price}}
+                        <text style="color:#999;font-size:22rpx;">小镇价</text>                     
+                      </view>
+                      <view class="horizBg-price" style="color:#{{itemWrap.PriceColor}}" wx:else>
+                        ¥
+                        <text style="color:#{{itemWrap.PriceColor}}">{{item.Product.Price}}</text>
+                        <text wx:if="{{(item.Product.vprice-item.Product.Price)>0}}">¥{{item.Product.vprice}}</text>
+                      </view>
+                      <view class="horizBg-btn" style="color:#{{itemWrap.ButtonFontColor}};background:#{{itemWrap.ButtonColor}}">立即购买</view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </view>
+            <!-- 直播列表模块 -->
+            <view class="horizontal-Bg-wrap" wx:if="{{ind==1&&curr==0}}" style="background:#{{itemWrap.bgcolor}};margin-bottom:20rpx;margin-top:20rpx;">
+            <!-- 直播列表入口 -->
+            <view class="joinLive" wx:if="{{liveList.length>0&&ShowZB!=0}}">
+              <view class="j_top" bindtap="clickmore">
+                <image src="http://cache.jiangxinxiaozhen.com/WD/APP/liveroom.png"></image>
+                <view class="span">查看更多></view>
+              </view>
+              <!-- 一个直播列表 -->
+              <view class="j_bot" wx:if="{{liveList.length==1}}" bindtap="joinLive" data-roomId="{{liveList[0].roomid}}">
+                  <view class="b_left">
+                    <image src="{{relist[0].share_img}}"></image>
+                    <view class="poa">
+                      <!-- 直播状态说明 101 直播中； 102 未开始 ；103 已结束；104 禁播；105 暂停中；106 异常；107 已过期 -->
+                      <!-- 即将开始 102-->
+                      <image wx:if="{{liveList[0].live_status==102}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/soon.png"></image>
+                      <!-- 直播中 101 105 106-->
+                      <image wx:if="{{liveList[0].live_status==101 || liveList[0].live_status==105 || liveList[0].live_status==106}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/living.png"></image>
+                      <!-- 已结束 103 104 107-->
+                      <image wx:if="{{liveList[0].live_status==103 || liveList[0].live_status==104 || liveList[0].live_status==107}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/relive.png"></image>
+                    </view>
+                  </view>
+                  <view class="b_right">
+                    <view class="title">{{liveList[0].name}}</view>
+                    <view class="name">{{liveList[0].anchor_name}}</view>
+                  </view>
+              </view>
+              <!-- 两个直播列表 -->
+              <view class="j_botbox" wx:if="{{liveList.length==2}}">
+                <view class="j_bottwo" bindtap="joinLive" data-roomId="{{liveList[0].roomid}}">
+                  <view class="b_top">
+                    <image src="{{relist[0].share_img}}"></image>
+                    <view class="poa">
+                      <!-- 直播状态说明 101 直播中； 102 未开始 ；103 已结束；104 禁播；105 暂停中；106 异常；107 已过期 -->
+                      <!-- 即将开始 102-->
+                      <image wx:if="{{liveList[0].live_status==102}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/soon.png"></image>
+                      <!-- 直播中 101 105 106-->
+                      <image wx:if="{{liveList[0].live_status==101 || liveList[0].live_status==105 || liveList[0].live_status==106}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/living.png"></image>
+                      <!-- 已结束 103 104 107-->
+                      <image wx:if="{{liveList[0].live_status==103 || liveList[0].live_status==104 || liveList[0].live_status==107}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/relive.png"></image>
+                    </view>
+                  </view>
+                  <view class="b_bot">
+                    <view class="title">{{liveList[0].name}}</view>
+                    <view class="name">{{liveList[0].anchor_name}}</view>
+                  </view>
+                </view>
+                <view class="j_bottwo" bindtap="joinLive" data-roomId="{{liveList[1].roomid}}">
+                  <view class="b_top">
+                    <image src="{{relist[1].share_img}}"></image>
+                    <view class="poa">
+                      <!-- 直播状态说明 101 直播中； 102 未开始 ；103 已结束；104 禁播；105 暂停中；106 异常；107 已过期 -->
+                      <!-- 即将开始 102-->
+                      <image wx:if="{{liveList[1].live_status==102}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/soon.png"></image>
+                      <!-- 直播中 101 105 106-->
+                      <image wx:if="{{liveList[1].live_status==101 || liveList[1].live_status==105 || liveList[1].live_status==106}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/living.png"></image>
+                      <!-- 已结束 103 104 107-->
+                      <image wx:if="{{liveList[1].live_status==103 || liveList[1].live_status==104 || liveList[1].live_status==107}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/relive.png"></image>
+                    </view>
+                  </view>
+                  <view class="b_bot">
+                    <view class="title">{{liveList[1].name}}</view>
+                    <view class="name">{{liveList[1].anchor_name}}</view>
+                  </view>
+                </view>
+              </view>
+              <!-- 三个及以上直播列表 -->
+              <view class="j_botboxthree" wx:if="{{liveList.length>=3}}">
+                <view class="j_bottwo" bindtap="joinLive" data-roomId="{{liveList[0].roomid}}">
+                  <view class="b_top">
+                    <image src="{{relist[0].share_img}}"></image>
+                    <view class="poa">
+                      <!-- 直播状态说明 101 直播中； 102 未开始 ；103 已结束；104 禁播；105 暂停中；106 异常；107 已过期 -->
+                      <!-- 即将开始 102-->
+                      <image wx:if="{{liveList[0].live_status==102}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/soon.png"></image>
+                      <!-- 直播中 101 105 106-->
+                      <image wx:if="{{liveList[0].live_status==101 || liveList[0].live_status==105 || liveList[0].live_status==106}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/living.png"></image>
+                      <!-- 已结束 103 104 107-->
+                      <image wx:if="{{liveList[0].live_status==103 || liveList[0].live_status==104 || liveList[0].live_status==107}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/relive.png"></image>
+                    </view>
+                  </view>
+                  <view class="b_bot">
+                    <view class="title">{{liveList[0].name}}</view>
+                    <view class="name">{{liveList[0].anchor_name}}</view>
+                  </view>
+                </view>
+                <view class="j_bottwo" bindtap="joinLive" data-roomId="{{liveList[1].roomid}}">
+                  <view class="b_top">
+                    <image src="{{relist[1].share_img}}"></image>
+                    <view class="poa">
+                      <!-- 直播状态说明 101 直播中； 102 未开始 ；103 已结束；104 禁播；105 暂停中；106 异常；107 已过期 -->
+                      <!-- 即将开始 102-->
+                      <image wx:if="{{liveList[1].live_status==102}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/soon.png"></image>
+                      <!-- 直播中 101 105 106-->
+                      <image wx:if="{{liveList[1].live_status==101 || liveList[1].live_status==105 || liveList[1].live_status==106}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/living.png"></image>
+                      <!-- 已结束 103 104 107-->
+                      <image wx:if="{{liveList[1].live_status==103 || liveList[1].live_status==104 || liveList[1].live_status==107}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/relive.png"></image>
+                    </view>
+                  </view>
+                  <view class="b_bot">
+                    <view class="title">{{liveList[1].name}}</view>
+                    <view class="name">{{liveList[1].anchor_name}}</view>
+                  </view>
+                </view>
+                <view class="j_bottwo" bindtap="joinLive" data-roomId="{{liveList[2].roomid}}">
+                  <view class="b_top">
+                    <image src="{{relist[2].share_img}}"></image>
+                    <view class="poa">
+                      <!-- 直播状态说明 101 直播中； 102 未开始 ；103 已结束；104 禁播；105 暂停中；106 异常；107 已过期 -->
+                      <!-- 即将开始 102-->
+                      <image wx:if="{{liveList[2].live_status==102}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/soon.png"></image>
+                      <!-- 直播中 101 105 106-->
+                      <image wx:if="{{liveList[2].live_status==101 || liveList[2].live_status==105 || liveList[2].live_status==106}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/living.png"></image>
+                      <!-- 已结束 103 104 107-->
+                      <image wx:if="{{liveList[2].live_status==103 || liveList[2].live_status==104 || liveList[2].live_status==107}}" src="http://cache.jiangxinxiaozhen.com/WD/APP/relive.png"></image>
+                    </view>
+                  </view>
+                  <view class="b_bot">
+                    <view class="title">{{liveList[2].name}}</view>
+                    <view class="name">{{liveList[2].anchor_name}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+
+            </view>
+          </block>
+
+        </scroll-view>
+      </swiper-item>
+    </block>
+
+
+  </swiper>
+  <!-- 添加到我的小程序提示 -->
+  <view class="addxcx" catchtap="addxcx" wx:if="{{isShowAddxcx}}">
+    <image src="https://cache.jiangxinxiaozhen.com/WD/APP/addxcx.png"></image>
+  </view>
+</view>
